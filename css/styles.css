@@ -13,10 +13,16 @@
 
 .sz_slider_content h3,
 .sz_slider_content p {
-	background-color: #f0eeef;
-	background-color: rgba(240, 240, 240, .8);
-
 	padding: 10px;
+}
+
+.sz_slider_content p span,
+.sz_slider_content h3 span {
+	background-color: #f0eeef;
+
+	line-height: 1.5em;
+	padding-bottom: 10px;
+	padding-top: 5px;
 }
 
 .sz_slider_content h3 {
@@ -67,8 +73,9 @@
  	border-left-color: rgba(240, 104, 48, 1.0) !important;
  }
 
-/* media queries */
+/* Media Queries */
 
+/* Mobile and small Screens */
 @media only screen and (max-width: 40em) {
 	.orbit-container {
 		height: auto; 
@@ -94,7 +101,8 @@
 @media only screen and (min-width: 40.063em) and (max-width: 64em) { 
 
 	.sz_slider_content {
-		max-width: 80%;
+		max-width: 100%;
+		top: 0;
 	}
 
 	.sz_slider_content h3 {

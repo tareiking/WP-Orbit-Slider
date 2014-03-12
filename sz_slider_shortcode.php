@@ -21,18 +21,23 @@ function sz_slider_shortcode() {
 	// Try default options a different way
 	$defaults = array( 
 		'timer_speed' 	=> '2000',
+		'animation_speed' => '500',
 		'animation'		=> 'slide',
 		'slide_number'	=> 'false',
 		'timer'			=> 'false',
 		'interchange'	=> 'false',
+      	'container_class' =>'orbit-container',
+      	'slide_number'	=> 'false',
  	 );
 
-	// Use Orbit Options as variables
-	$data_options = 'data-options=';
+	// Prep data-options for HTML generation
+	$data_options = 'data-options="';
 
-	foreach( $defaults as $k => $v ) {
+	foreach( $defaults as $k => $v ) { // Generate
 		$data_options .= $k . ':' . $v .'; ';
 	}
+
+	$data_options .= '" ';
 
 	// Setup loop to get Slides
 	$slides = get_posts( array(
@@ -45,8 +50,8 @@ function sz_slider_shortcode() {
 		return;
 	}
 
-	// Time to make the content for the slider shortcode
-	$results = "<ul class=\"$wrapper_class\" $wrapper_data_role $data_options >";
+	// Time to make the HTML for the slider shortcode
+	$results = "<ul class=\"$wrapper_class\" $data_options data-orbit >";
 
 	foreach ( $slides as $slide ) {
 		// Open Slide
