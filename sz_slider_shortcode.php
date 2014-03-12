@@ -18,6 +18,21 @@ function sz_slider_shortcode() {
 	$wrapper_class = 'sz_slider_wrapper';
 	$wrapper_data_role = 'data-orbit';
 
+	// Default options, fade; disable slide_nmber; disable: timer;
+	$orbit_options = 'data-options="animation: \'fade\'; timer_speed: 4000; slide_number: false; timer: false; resume_on_mouseout: true; "'; // TODO coming soon
+
+	// Default options, slide; disable slide_nmber; disable: timer;
+	// $orbit_options = 'data-options="timer_speed: 4000; slide_number: false; timer: false; resume_on_mouseout: true; "'; // TODO coming soon
+
+
+	// Try default options a different way
+	// $ar_orbit_options = array( 
+	// 	'timer_speed' 	=> '1000',
+	// 	'animation'		=> 'fade',
+	// 	'slide_number'	=> 'false',
+	// 	'timer'			=> 'false'
+ // 	 );
+
 	// Setup loop to get Slides
 	$slides = get_posts( array(
 		'post_type' => $custom_post_type
@@ -29,26 +44,28 @@ function sz_slider_shortcode() {
 		return;
 	}
 
+	// FIXME: remove check for interchange, replace with proper boolean.
+	if ( current_theme_supports( 'foundation-interchange' ) ) {
+		$interchange = 'interchange';
+	} else {
+		$interchange = '';
+	}
 	// var_dump( $slides ); // debug
 
 	// Time to make the content for the slider shortcode
-	$results = "<ul class=\"$wrapper_class\" $wrapper_data_role>";
+	$results = "<ul class=\"$wrapper_class $interchange\" $wrapper_data_role $orbit_options >";
 
 	foreach ( $slides as $slide ) {
-		// Open slide
+		// Open Slide
 		$results .= '<li>' . "\n" ;
 		
-		// Slider thumbnail
+		// Slider Thumbnail
 		$results .= get_the_post_thumbnail( $slide->ID ) . "\n";
-
-		// Slider Title
-		$results .= '<div class="sz_slider_title">' . "\n";
-		$results .= $slide->post_title . "\n";
-		$results .= '</div>' . "\n";
 
 		// Slider Content
 		$results .= '<div class="sz_slider_content">' . "\n";
-		$results .= $slide->post_content . "\n";
+			$results .= '<h3>' . $slide->post_title . '</h3>' . "\n";
+			$results .= '<p>' . $slide->post_content . '</p>' . "\n";		
 		$results .= '</div>' . "\n";
 
 		// Close slide

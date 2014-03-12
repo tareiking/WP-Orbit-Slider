@@ -1,0 +1,30 @@
+/* As Foundation 5.20: Doesn't specify size of images as a "height" in orbit
+ * We need to add some more styles	
+ */
+
+
+/* 
+	Definitely better off handling this with javascript 'reflow' where possible
+*/
+ .interchange {
+
+ }
+
+ /* media queries */
+
+@media only screen and (max-width: 40em) {
+	.orbit-container {
+		height: auto !important; 
+	}
+ } /* max-width 640px, mobile-only styles, use when QAing mobile issues */
+
+
+/* Medium screens */
+@media only screen and (min-width: 40.063em) { } /* min-width 641px, medium screens */
+
+@media only screen and (min-width: 40.063em) and (max-width: 64em) { 
+	.orbit-container {
+		height: auto !important; 
+	}
+
+} /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */

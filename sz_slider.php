@@ -21,8 +21,6 @@ Domain Path: /languages
  * sz_slider
  *
  * Register Custom Post Type for Slider
- * @return void
- * @author @tareiking
  **/
 if ( ! function_exists('sz_slider') ) {
 
@@ -33,8 +31,8 @@ function sz_slider() {
 		'name'                => 'Slides',
 		'singular_name'       => 'Slide',
 		'menu_name'           => 'Slides',
-		'parent_item_colon'   => 'Parent Slider:',
-		'all_items'           => 'All slide',
+		'parent_item_colon'   => 'Parent Slide:',
+		'all_items'           => 'All Slides',
 		'view_item'           => 'View Slide',
 		'add_new_item'        => 'Add new Slide',
 		'add_new'             => 'Add New Slide',
@@ -77,8 +75,13 @@ require_once( 'sz_slider_shortcode.php' );
 
 /* Include custom CSS styles */
 function sz_slider_scripts(){
-	wp_register_style( 'sz_slider', plugins_url('styles.css', __FILE__) );
+	wp_register_style( 'sz_slider', plugins_url('css/styles.css', __FILE__) );
+	wp_register_style( 'sz_slider_interchange', plugins_url('css/interchange.css', __FILE__) );
+
 	wp_enqueue_style( 'sz_slider' );
+	if ( current_theme_supports( 'foundation-interchange' ) ) {
+		wp_enqueue_style( 'sz_slider_interchange' );
+	}
 }
 
 add_action( 'wp_enqueue_scripts', 'sz_slider_scripts' );
