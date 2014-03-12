@@ -18,20 +18,21 @@ function sz_slider_shortcode() {
 	$wrapper_class = 'sz_slider_wrapper';
 	$wrapper_data_role = 'data-orbit';
 
-	// Default options, fade; disable slide_nmber; disable: timer;
-	$orbit_options = 'data-options="animation: \'fade\'; timer_speed: 4000; slide_number: false; timer: false; resume_on_mouseout: true; "'; // TODO coming soon
-
-	// Default options, slide; disable slide_nmber; disable: timer;
-	// $orbit_options = 'data-options="timer_speed: 4000; slide_number: false; timer: false; resume_on_mouseout: true; "'; // TODO coming soon
-
-
 	// Try default options a different way
-	// $ar_orbit_options = array( 
-	// 	'timer_speed' 	=> '1000',
-	// 	'animation'		=> 'fade',
-	// 	'slide_number'	=> 'false',
-	// 	'timer'			=> 'false'
- // 	 );
+	$defaults = array( 
+		'timer_speed' 	=> '2000',
+		'animation'		=> 'slide',
+		'slide_number'	=> 'false',
+		'timer'			=> 'false',
+		'interchange'	=> 'false',
+ 	 );
+
+	// Use Orbit Options as variables
+	$data_options = 'data-options=';
+
+	foreach( $defaults as $k => $v ) {
+		$data_options .= $k . ':' . $v .'; ';
+	}
 
 	// Setup loop to get Slides
 	$slides = get_posts( array(
@@ -44,16 +45,8 @@ function sz_slider_shortcode() {
 		return;
 	}
 
-	// FIXME: remove check for interchange, replace with proper boolean.
-	if ( current_theme_supports( 'foundation-interchange' ) ) {
-		$interchange = 'interchange';
-	} else {
-		$interchange = '';
-	}
-	// var_dump( $slides ); // debug
-
 	// Time to make the content for the slider shortcode
-	$results = "<ul class=\"$wrapper_class $interchange\" $wrapper_data_role $orbit_options >";
+	$results = "<ul class=\"$wrapper_class\" $wrapper_data_role $data_options >";
 
 	foreach ( $slides as $slide ) {
 		// Open Slide
@@ -64,8 +57,8 @@ function sz_slider_shortcode() {
 
 		// Slider Content
 		$results .= '<div class="sz_slider_content">' . "\n";
-			$results .= '<h3>' . $slide->post_title . '</h3>' . "\n";
-			$results .= '<p>' . $slide->post_content . '</p>' . "\n";		
+			$results .= '<h3><span>' . $slide->post_title . '</span></h3>' . "\n";
+			$results .= '<p><span>' . $slide->post_content . '</span></p>' . "\n";		
 		$results .= '</div>' . "\n";
 
 		// Close slide
